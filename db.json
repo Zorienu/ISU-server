@@ -1,24 +1,20 @@
 {
   "puertas": [
     {
+      "id": 0,
+      "pin": 4
+    },
+    {
       "id": 1,
-      "pin": "gpio-1",
-      "estado": true
+      "pin": 5
     },
     {
       "id": 2,
-      "pin": "gpio-2",
-      "estado": false
-    },
-    {
-      "id": 3,
-      "pin": "gpio-3",
-      "estado": true
+      "pin": 6
     }
   ],
   "luzuv": {
     "id": 1,
-    "pin": "gpio-4",
-    "estado": false
+    "pin": 7
   }
 }

@@ -1,7 +1,5 @@
-import lowDb from 'lowdb'
-import FileSync from 'lowdb/adapters/FileSync.js'
+import { db } from '../index.js'
 
-const db = lowDb(new FileSync('db.json'))
 
 export const getEstadoLuzUV = async (req, res) => {
    try {
