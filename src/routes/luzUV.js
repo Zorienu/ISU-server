@@ -6,7 +6,7 @@ import {
 
 const router = express.Router()
 
-router.get('/EstadoLuzUV/:id', getEstadoLuzUV)
-router.post('/EstadoLuzUV/:id', setEstadoLuzUV)
+router.get('/getEstadoLuzUV', getEstadoLuzUV)
+router.put('/setEstadoLuzUV', setEstadoLuzUV)
 
 export default router

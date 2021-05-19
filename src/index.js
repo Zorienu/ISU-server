@@ -3,9 +3,11 @@ import cors from 'cors'
 import lowDb from 'lowdb'
 import FileSync from 'lowdb/adapters/FileSync.js'
 import bodyParser from 'body-parser'
+import { Gpio } from 'onoff'
 
 import puertasRoutes from './routes/puertas.js'
 import luzUVRoutes from './routes/luzUV.js'
+import pilotosRoutes from './routes/pilotos.js'
 
 export const db = lowDb(new FileSync('db.json'))
 
@@ -25,6 +27,7 @@ app.use(cors())
 
 app.use('/puertas', puertasRoutes)
 app.use('/luzuv', luzUVRoutes)
+app.use('/pilotos', pilotosRoutes)
 
 const PORT = 4000
 
@@ -46,5 +49,58 @@ const PORT = 4000
 // }
 
 // setTimeout(endBlink, 5000); //stop blinking after 5 seconds
+
+// inicializar puertas
+const infoPuertas = db.get('puertas').value()
+export const puertas = []
+for (let i in infoPuertas) {
+   const { id, pin, ledActivo, ledInactivo } = infoPuertas[i]
+   const pines = {
+      id,
+      pin: new Gpio(pin, 'out'),
+      ledActivo: new Gpio(ledActivo, 'out'),
+      ledInactivo: new Gpio(ledInactivo, 'out'),
+   }
+   puertas.push(pines)
+}
+
+// inicializar Luz uv
+const infoLuzUV = db.get('luzuv').value()
+const { id, pin, ledActivo, ledInactivo } = infoLuzUV
+export const luzUV = {
+   id,
+   pin: new Gpio(pin, 'out'),
+   ledActivo: new Gpio(ledActivo, 'out'),
+   ledInactivo: new Gpio(ledInactivo, 'out'),
+}
+
+// inicializar pilotos tapabocas
+const infoPilotos = db.get('pilotos').value()
+const { conTapabocas, sinTapabocas } = infoPilotos
+export const pilotos = {
+   conTapabocas: new Gpio(conTapabocas, 'out'),
+   sinTapabocas: new Gpio(sinTapabocas, 'out'),
+}
+
+// Configuración inicial pines
+puertas.forEach(puerta => {
+   const { pin, ledActivo, ledInactivo } = puerta
+   pin.writeSync(0)
+   ledActivo.writeSync(0)
+   ledInactivo.writeSync(1)
+})
+
+const { pin: pinluzuv, ledActivo: ledActivoluzuv, ledInactivo: ledInactivoluzuv } = luzUV
+pinluzuv.writeSync(0)
+ledActivoluzuv.writeSync(0)
+ledInactivoluzuv.writeSync(1)
+
+pilotos.conTapabocas.writeSync(0)
+pilotos.sinTapabocas.writeSync(0)
+
+
+
+
+
 
 app.listen(PORT, () => console.log('listening on port 4000'))

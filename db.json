@@ -1,20 +1,32 @@
 {
+  "pilotos": {
+    "conTapabocas": 3,
+    "sinTapabocas": 2
+  },
+  "luzuv": {
+    "id": 0,
+    "pin": 24,
+    "ledActivo": 12,
+    "ledInactivo": 26
+  },
   "puertas": [
     {
       "id": 0,
-      "pin": 4
+      "pin": 21,
+      "ledActivo": 20,
+      "ledInactivo": 16
     },
     {
       "id": 1,
-      "pin": 5
+      "pin": 23,
+      "ledActivo": 19,
+      "ledInactivo": 13
     },
     {
       "id": 2,
-      "pin": 6
+      "pin": 4,
+      "ledActivo": 6,
+      "ledInactivo": 5
     }
-  ],
-  "luzuv": {
-    "id": 1,
-    "pin": 7
-  }
+  ]
 }
