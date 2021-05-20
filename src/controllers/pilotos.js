@@ -41,8 +41,13 @@ export const setEstadoPilotos = async (req, res) => {
       const modo = estados[estado]
       const { conTapabocas, sinTapabocas } = pilotos
 
+      if (modo.conTapabocas === 1)
+         exec('mplayer ~/Desktop/Jhan/src/audios/accesoOtorgado.mp3', (err, stdout, stderr) => {
+            if (err) console.log(err)
+         })
+
       if (modo.sinTapabocas === 1)
-         exec('mplayer ~/Desktop/Jhan/audio.mp3', (err, stdout, stderr) => {
+         exec('mplayer ~/Desktop/Jhan/src/audios/accesoDenegado.mp3', (err, stdout, stderr) => {
             if (err) console.log(err)
          })
 
