@@ -8,6 +8,8 @@ import { Gpio } from 'onoff'
 import puertasRoutes from './routes/puertas.js'
 import luzUVRoutes from './routes/luzUV.js'
 import pilotosRoutes from './routes/pilotos.js'
+import allPinesRoutes from './routes/allPines.js'
+import hacerSecuenciaRoute from './routes/secuencia.js'
 
 export const db = lowDb(new FileSync('db.json'))
 
@@ -28,6 +30,8 @@ app.use(cors())
 app.use('/puertas', puertasRoutes)
 app.use('/luzuv', luzUVRoutes)
 app.use('/pilotos', pilotosRoutes)
+app.use('/pines', allPinesRoutes)
+app.use('/secuencia', hacerSecuenciaRoute)
 
 const PORT = 4000
 
